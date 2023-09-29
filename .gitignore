@@ -9,20 +9,9 @@ package-lock.json
 # Diretório de saída do TypeScript
 dist/
 
-# Arquivos de configuração do ambiente
-.docker/.env
-
-# Diretórios e arquivos relacionados ao Docker
-.docker/
-*.dockerfile
-docker-compose*.yml
-
-# Diretório de testes
-tests/
-
 # Diretórios e arquivos de editor
 .idea/
-.vscode/
+#.vscode/
 *.swp
 *.swo
 *.sublime*
