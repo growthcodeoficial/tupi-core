@@ -14,12 +14,14 @@ export default class ElementNode extends Node implements Element {
   private _type: string;
   private _props: Props;
   private _children: Element[];
+  private _eventListeners: Record<string, ((event: Event) => void)[]>;
 
   constructor(type: string, props: Props, children: Element[]) {
     super();
     this._type = type;
     this._props = { ...props };
     this._children = [...children];
+    this._eventListeners = {};
   }
 
   get type(): string {
@@ -57,7 +59,28 @@ export default class ElementNode extends Node implements Element {
     const index = this._children.indexOf(oldNode);
     if (index !== -1) {
       this._children[index] = newNode;
-    } 
+    }
+  }
+
+  addNativeEventListener(
+    eventType: string,
+    listener: (event: Event) => void
+  ): void {
+    // Se não houver uma entrada para este tipo de evento, crie uma
+    if (!this._eventListeners[eventType]) {
+      this._eventListeners[eventType] = [];
+    }
+
+    // Adiciona o listener à lista de listeners para este tipo de evento
+    this._eventListeners[eventType].push(listener);
+  }
+
+  applyEventListeners(element: HTMLElement): void {
+    for (const eventType in this._eventListeners) {
+      for (const listener of this._eventListeners[eventType]) {
+        element.addEventListener(eventType, listener);
+      }
+    }
   }
 
   render(): HTMLElement {
@@ -77,6 +100,9 @@ export default class ElementNode extends Node implements Element {
       const childElement = child.render();
       element.appendChild(childElement);
     }
+
+    // Aplica os listeners de eventos registrados
+    this.applyEventListeners(element);
 
     return element;
   }
