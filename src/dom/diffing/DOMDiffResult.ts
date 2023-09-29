@@ -1,13 +1,13 @@
 import DOMOperation from "@dom/diffing/DOMOperation";
 
 export default class DOMDiffResult {
-  private operations: DOMOperation[];
+  private _operations: DOMOperation[];
 
   constructor(operations: DOMOperation[]) {
-    this.operations = operations;
+    this._operations = operations;
   }
 
-  getOperations(): DOMOperation[] {
-    return this.operations;
+  get operations(): DOMOperation[] {
+    return this._operations;
   }
 }

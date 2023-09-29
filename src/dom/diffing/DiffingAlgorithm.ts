@@ -3,7 +3,7 @@ import NodeComparator from "@dom/diffing/NodeComparator";
 import DOMOperation, { DOMOperationType } from "@dom/diffing/DOMOperation";
 import { Element } from "@dom/virtual-dom/ElementNode";
 
-export class DiffingAlgorithm {
+export default class DiffingAlgorithm {
   private comparator: NodeComparator;
 
   constructor(comparator: NodeComparator) {

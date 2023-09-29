@@ -1,4 +1,4 @@
-import ElementNode, { Element } from "@dom/virtual-dom/ElementNode";
+import ElementNode from "@dom/virtual-dom/ElementNode";
 export class ElementFactory {
   static create(
     type: string,

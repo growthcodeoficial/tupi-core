@@ -8,25 +8,25 @@ export enum DOMOperationType {
 }
 
 export default class DOMOperation {
-  private type: DOMOperationType;
-  private targetNode: Element;
-  private content?: Element;
+  private _type: DOMOperationType;
+  private _targetNode: Element;
+  private _content?: Element;
 
   constructor(type: DOMOperationType, targetNode: Element, content?: Element) {
-    this.type = type;
-    this.targetNode = targetNode;
-    this.content = content;
+    this._type = type;
+    this._targetNode = targetNode;
+    this._content = content;
   }
 
-  getType(): DOMOperationType {
-    return this.type;
+  get type(): DOMOperationType {
+    return this._type;
   }
 
-  getTargetNode(): Element {
-    return this.targetNode;
+  get targetNode(): Element {
+    return this._targetNode;
   }
 
-  getContent(): Element | undefined {
-    return this.content;
+  get content(): Element | undefined {
+    return this._content;
   }
 }
