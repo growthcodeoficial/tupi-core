@@ -46,3 +46,10 @@ docker-down:
 docker-bash:
 	docker-compose -f $(DC_FILE_PATH) exec gcode-tupi-core /bin/bash
 
+# Comando para rodar todos os testes com Jest dentro do container
+jest-tests:
+	docker-compose -f $(DC_FILE_PATH) exec gcode-tupi-core yarn test
+
+# Comando para rodar um arquivo de teste específico com Jest dentro do container
+jest-test-class:
+	docker-compose -f $(DC_FILE_PATH) exec gcode-tupi-core yarn test $(FILE)
