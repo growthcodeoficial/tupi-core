@@ -1,14 +1,18 @@
 // tests/dom/virtual-dom/Node.test.ts
-
+import { Testable } from "./decorators";
 import Node from "@dom/virtual-dom/Node";
 
-class MockNode extends Node {
-  render() {
-    return document.createTextNode("MockNode");
-  }
-}
+@Testable
+class TestNode extends Node {}
 
-test("MockNode render", () => {
-  const node = new MockNode();
-  expect(node.render().textContent).toBe("MockNode");
+describe("Node", () => {
+  let nodeInstance: Node;
+
+  beforeEach(() => {
+    nodeInstance = new TestNode();
+  });
+
+  it("should generate a unique ID on creation", () => {
+    expect(nodeInstance.id).toEqual("_mockedUniqueId");
+  });
 });

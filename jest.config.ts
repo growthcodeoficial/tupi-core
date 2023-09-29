@@ -4,7 +4,7 @@ import { compilerOptions } from "./tsconfig.json";
 
 const config: Config.InitialOptions = {
   preset: "ts-jest",
-  testEnvironment: 'jsdom',
+  testEnvironment: "jsdom",
   roots: ["<rootDir>/__tests__"],
   transform: {
     "^.+\\.(ts|tsx)$": [
@@ -16,7 +16,12 @@ const config: Config.InitialOptions = {
   },
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
-  testPathIgnorePatterns: ["<rootDir>/node_modules/", "<rootDir>/dist/", "<rootDir>/.dist-tests/"],
+  testPathIgnorePatterns: [
+    "<rootDir>/node_modules/",
+    "<rootDir>/dist/",
+    "<rootDir>/.dist-tests/",
+    "<rootDir>/__tests__/dom/virtual-dom/decorators.ts",
+  ],
   coverageDirectory: "<rootDir>/.dist-tests/coverage",
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
     prefix: "<rootDir>/src/",

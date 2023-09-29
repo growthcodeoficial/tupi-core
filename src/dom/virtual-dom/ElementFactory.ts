@@ -1,11 +1,9 @@
-import ElementNode from "@dom/virtual-dom/ElementNode";
-import Node from "@dom/virtual-dom/Node";
-
+import ElementNode, { Element } from "@dom/virtual-dom/ElementNode";
 export class ElementFactory {
   static create(
     type: string,
     props: Record<string, any>,
-    ...children: Node[]
+    ...children: any[]
   ): ElementNode {
     return new ElementNode(type, props, children);
   }
