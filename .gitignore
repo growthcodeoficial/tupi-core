@@ -1,0 +1,40 @@
+# Arquivos e diretórios relacionados ao Node.js
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+yarn.lock
+package-lock.json
+
+# Diretório de saída do TypeScript
+dist/
+
+# Arquivos de configuração do ambiente
+.docker/.env
+
+# Diretórios e arquivos relacionados ao Docker
+.docker/
+*.dockerfile
+docker-compose*.yml
+
+# Diretório de testes
+tests/
+
+# Diretórios e arquivos de editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime*
+*.sln
+*.user
+*.userosscache
+*.suo
+*.dbmdl
+*.dbproj.schemaview
+*.pfx
+*.publishsettings
+
+# Sistemas Operacionais
+.DS_Store
+Thumbs.db
