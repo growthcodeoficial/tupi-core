@@ -8,6 +8,7 @@ package-lock.json
 
 # Diretório de saída do TypeScript
 dist/
+coverage/
 
 # Diretórios e arquivos de editor
 .idea/
