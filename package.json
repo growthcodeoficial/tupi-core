@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development tsc -w -p tsconfig.json",
     "build": "cross-env NODE_ENV=production tsc -p tsconfig.json",
-    "test": "jest --colors",
+    "test": "tsc -p tsconfig.test.json && jest --colors",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
     "prepare": "yarn build",
     "prepublishOnly": "yarn test && yarn lint"

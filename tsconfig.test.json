@@ -3,7 +3,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "rootDir": "./",
-    "outDir": "./dist-tests"
+    "outDir": "./.dist-tests"
   },
   "include": ["src/**/*.ts", "__tests__/**/*.ts"]
 }
