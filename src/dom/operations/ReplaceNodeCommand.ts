@@ -2,7 +2,7 @@ import DOMOperation from "@dom/diffing/DOMOperation";
 import DOMOperationCommand from "@dom/operations/DOMOperationCommand";
 import { Element } from "@dom/virtual-dom/ElementNode";
 
-export class ReplaceNodeCommand implements DOMOperationCommand {
+export default class ReplaceNodeCommand implements DOMOperationCommand {
   constructor(private operation: DOMOperation) {}
 
   execute(container: HTMLElement): void {
