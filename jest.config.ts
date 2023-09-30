@@ -16,6 +16,10 @@ const config: Config.InitialOptions = {
   },
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
+  collectCoverageFrom: [
+    "<rootDir>/src/**/*.{ts,tsx}", 
+    "!src/__tests__/dom/virtual-dom/decorators.ts",
+  ],
   testPathIgnorePatterns: [
     "<rootDir>/node_modules/",
     "<rootDir>/dist/",

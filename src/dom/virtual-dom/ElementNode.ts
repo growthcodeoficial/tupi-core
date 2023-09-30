@@ -7,6 +7,10 @@ export interface Element {
   get type(): string;
   get props(): Props;
   get children(): Element[];
+  addNativeEventListener(
+    eventType: string,
+    listener: (event: Event) => void
+  ): void;
   render(): HTMLElement;
 }
 
