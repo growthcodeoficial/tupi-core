@@ -1,3 +1,5 @@
+import { Element } from "@dom/virtual-dom/Node";
+
 export default interface DOMOperationCommand {
-  execute(container: HTMLElement): void;
+  execute(container: Element | HTMLElement): void;
 }

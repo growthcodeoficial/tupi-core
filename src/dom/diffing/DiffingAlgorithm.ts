@@ -1,7 +1,7 @@
 import DOMDiffResult from "@dom/diffing/DOMDiffResult";
 import NodeComparator from "@dom/diffing/NodeComparator";
 import DOMOperation, { DOMOperationType } from "@dom/diffing/DOMOperation";
-import { Element } from "@dom/virtual-dom/ElementNode";
+import { Element, ElementTag } from "@dom/virtual-dom/Node";
 
 export default class DiffingAlgorithm {
   private comparator: NodeComparator;
@@ -28,8 +28,8 @@ export default class DiffingAlgorithm {
       return;
     }
 
-    const oldChildren = oldNode.children;
-    const newChildren = newNode.children;
+    const oldChildren = (oldNode as ElementTag).children;
+    const newChildren = (newNode as ElementTag).children;
     const commonLength = Math.min(oldChildren.length, newChildren.length);
 
     for (let i = 0; i < commonLength; i++) {

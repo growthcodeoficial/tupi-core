@@ -1,9 +1,13 @@
-import { Element } from "@dom/virtual-dom/ElementNode";
+import { Element, ElementTag } from "@dom/virtual-dom/Node";
 
 export default class NodeComparator {
   areEqual(node1: Element, node2: Element): boolean {
     return (
-      node1.type === node2.type && this.arePropsEqual(node1.props, node2.props)
+      node1.type === node2.type &&
+      this.arePropsEqual(
+        (node1 as ElementTag).props,
+        (node2 as ElementTag).props
+      )
     );
   }
 

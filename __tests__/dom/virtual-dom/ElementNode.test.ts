@@ -1,12 +1,13 @@
 // tests/dom/virtual-dom/ElementNode.test.ts
 
-import ElementNode, { Element, Props } from "@dom/virtual-dom/ElementNode";
+import ElementNode from "@dom/virtual-dom/ElementNode";
+import { Element, ElementTag, Props } from "@dom/virtual-dom/Node";
 
 describe("Node", () => {
   // Teste para garantir que cada nova instância de ElementNode recebe um ID único
   it("should generate a unique ID on creation", () => {
-    const node1 = new ElementNode("div", {}, []);
-    const node2 = new ElementNode("div", {}, []);
+    const node1 = new ElementNode("div");
+    const node2 = new ElementNode("div");
     expect(node1.id).not.toEqual(node2.id);
   });
 });
@@ -16,8 +17,8 @@ describe("ElementNode", () => {
   const type = "div";
   const props: Props = { class: "example" };
   const children: Element[] = [];
-  const child1 = new ElementNode("span", {}, []);
-  const child2 = new ElementNode("p", {}, []);
+  const child1 = new ElementNode("span");
+  const child2 = new ElementNode("p");
 
   beforeEach(() => {
     elementNode = new ElementNode(type, props, []);
@@ -32,11 +33,11 @@ describe("ElementNode", () => {
 
   // Teste para garantir que a classe é renderizada em um HTMLElement de forma precisa
   it("should render to an HTMLElement", () => {
-    const children: Element[] = [
+    const children: ElementTag[] = [
       new ElementNode("span", { class: "child" }, []),
     ];
 
-    const elementNode = new ElementNode(type, props, children);
+    const elementNode = new ElementNode(type, props, children as Element[]);
     const renderedElement = elementNode.render();
 
     expect(renderedElement.tagName.toLowerCase()).toEqual(type);
@@ -70,7 +71,7 @@ describe("ElementNode", () => {
 
   // Teste para lidar com a remoção de um não-filho
   it("should handle removing a non-child", () => {
-    const nonChild = new ElementNode("h1", {}, []);
+    const nonChild = new ElementNode("h1");
     elementNode.removeChild(nonChild);
     expect(elementNode.children.length).toBe(0);
   });
@@ -78,7 +79,7 @@ describe("ElementNode", () => {
   // Teste para garantir que os filhos podem ser substituídos corretamente no nó
   it("should correctly replace children", () => {
     elementNode.addChild(child1);
-    const newChild = new ElementNode("h1", {}, []);
+    const newChild = new ElementNode("h1");
     elementNode.replaceChild(newChild, child1);
     expect(elementNode.children).toContain(newChild);
     expect(elementNode.children).not.toContain(child1);
@@ -87,8 +88,8 @@ describe("ElementNode", () => {
 
   // Teste para lidar com a substituição de um não-filho
   it("should handle replacing a non-child", () => {
-    const nonChild = new ElementNode("h1", {}, []);
-    const newChild = new ElementNode("h2", {}, []);
+    const nonChild = new ElementNode("h1");
+    const newChild = new ElementNode("h2");
     elementNode.replaceChild(newChild, nonChild);
     expect(elementNode.children.length).toBe(0);
   });
@@ -99,7 +100,7 @@ describe("ElementNode", () => {
 
   // Teste para verificar se o setter 'children' está funcionando como esperado
   it("should correctly set children through setter", () => {
-    const initialChildren: Element[] = [new ElementNode("span", {}, [])];
+    const initialChildren: Element[] = [new ElementNode("span")];
     const elementNode = new ElementNode("div", {}, initialChildren);
 
     // Verifica se os filhos iniciais estão corretos
@@ -107,8 +108,8 @@ describe("ElementNode", () => {
 
     // Define novos filhos
     const newChildren: Element[] = [
-      new ElementNode("span", {}, []),
-      new ElementNode("a", {}, []),
+      new ElementNode("span"),
+      new ElementNode("a"),
     ];
     elementNode.children = newChildren;
 
@@ -124,14 +125,14 @@ describe("ElementNode", () => {
     elementNode.props = { class: "updated" };
     expect(elementNode.props.class).toEqual("updated");
 
-    const child = new ElementNode("span", {}, []);
+    const child = new ElementNode("span");
     elementNode.addChild(child);
     expect(elementNode.children).toContain(child);
 
     elementNode.removeChild(child);
     expect(elementNode.children).not.toContain(child);
 
-    const newChild = new ElementNode("p", {}, []);
+    const newChild = new ElementNode("p");
     elementNode.replaceChild(newChild, child); // O filho antigo não é encontrado, então nada muda
     expect(elementNode.children).not.toContain(newChild); // Agora espera que newChild não esteja presente
     expect(elementNode.children).not.toContain(child);

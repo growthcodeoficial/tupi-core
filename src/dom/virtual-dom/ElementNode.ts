@@ -1,26 +1,16 @@
-import Node from "@dom/virtual-dom/Node";
-
-export interface Props {
-  [key: string]: any;
-}
-export interface Element {
-  get type(): string;
-  get props(): Props;
-  get children(): Element[];
-  addNativeEventListener(
-    eventType: string,
-    listener: (event: Event) => void
-  ): void;
-  render(): HTMLElement;
-}
-
-export default class ElementNode extends Node implements Element {
+import Node, { Element, ElementTag, Props } from "@dom/virtual-dom/Node";
+export default class ElementNode extends Node implements ElementTag {
   private _type: string;
   private _props: Props;
   private _children: Element[];
-  private _eventListeners: Record<string, ((event: Event) => void)[]>;
 
-  constructor(type: string, props: Props, children: Element[]) {
+  private _eventListeners: Record<string, ((event: Event) => void)[]> = {};
+  private _domElements: Map<
+    HTMLElement,
+    Record<string, ((event: Event) => void)[]>
+  > = new Map();
+
+  constructor(type: string, props: Props = {}, children: Element[] = []) {
     super();
     this._type = type;
     this._props = { ...props };
@@ -79,18 +69,50 @@ export default class ElementNode extends Node implements Element {
     this._eventListeners[eventType].push(listener);
   }
 
+  removeNativeEventListener(
+    eventType: string,
+    listener: (event: Event) => void
+  ): void {
+    // Verifica se há uma entrada para este tipo de evento
+    if (this._eventListeners[eventType]) {
+      // Encontra o índice do listener na lista de listeners para este tipo de evento
+      const index = this._eventListeners[eventType].indexOf(listener);
+      if (index !== -1) {
+        // Remove o listener da lista de listeners
+        this._eventListeners[eventType].splice(index, 1);
+      }
+    }
+
+    // Remove o listener do elemento DOM real
+    for (const [element, listeners] of this._domElements) {
+      if (listeners[eventType]) {
+        const index = listeners[eventType].indexOf(listener);
+        if (index !== -1) {
+          element.removeEventListener(eventType, listener);
+          listeners[eventType].splice(index, 1);
+        }
+      }
+    }
+  }
+
   applyEventListeners(element: HTMLElement): void {
     for (const eventType in this._eventListeners) {
       for (const listener of this._eventListeners[eventType]) {
         element.addEventListener(eventType, listener);
       }
     }
+
+    // Manter um registro do elemento DOM e seus listeners
+    this._domElements.set(element, { ...this._eventListeners });
+  }
+
+  updateProps(newProps: Object): void {
+    Object.assign(this.props, newProps);
   }
 
   render(): HTMLElement {
     // Cria um novo elemento HTML
     const element = document.createElement(this._type);
-
     // Aplica todas as propriedades ao elemento
     for (const key in this._props) {
       if (Object.prototype.hasOwnProperty.call(this._props, key)) {

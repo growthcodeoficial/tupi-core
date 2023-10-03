@@ -1,7 +1,7 @@
 import DOMObservable from "@observability/DOMObservable";
 import DOMEvent from "@observability/DOMEvent";
 import Observer from "@observability/Observer";
-import ElementNode, { Element } from "@dom/virtual-dom/ElementNode";
+import ElementNode from "@dom/virtual-dom/ElementNode";
 
 describe("DOMObservable", () => {
   let domObservable: DOMObservable;
@@ -17,7 +17,7 @@ describe("DOMObservable", () => {
 
   it("should bind and notify event", () => {
     // Criando um mock do ElementNode
-    const mockElement = new ElementNode("button", {}, []) as any;
+    const mockElement = new ElementNode("button") as any;
     const eventType = "click";
 
     // Mock do método addNativeEventListener
@@ -40,7 +40,7 @@ describe("DOMObservable", () => {
 
   it("should notify event", () => {
     // Criando um mock do ElementNode
-    const mockElement = new ElementNode("button", {}, []);
+    const mockElement = new ElementNode("button");
     const eventType = "click";
 
     // Notificando um evento

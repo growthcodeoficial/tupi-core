@@ -1,10 +1,4 @@
-import Node from "@dom/virtual-dom/Node";
-
-export interface ElementText {
-  get type(): string;
-  get text(): string;
-  render(): Text;
-}
+import Node, { ElementText } from "@dom/virtual-dom//Node";
 
 export default class TextNode extends Node implements ElementText {
   private _text: string;

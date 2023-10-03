@@ -6,7 +6,7 @@ describe("DOMDiffResult", () => {
   it("should hold operations correctly", () => {
     const op = new DOMOperation(
       DOMOperationType.ADD_NODE,
-      new ElementNode("div", {}, [])
+      new ElementNode("div")
     );
     const result = new DOMDiffResult([op]);
     expect(result.operations).toEqual([op]);

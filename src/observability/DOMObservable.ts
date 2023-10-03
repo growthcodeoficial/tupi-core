@@ -1,11 +1,11 @@
 import Observable from "@observability/Observable";
 import DOMEvent from "@observability/DOMEvent";
-import { Element } from "@dom/virtual-dom/ElementNode";
+import { Element, ElementTag } from "@dom/virtual-dom/Node";
 
 export default class DOMObservable extends Observable<DOMEvent> {
   // Método para vincular um evento DOM a um elemento específico
   bindEvent(element: Element, eventType: string): void {
-    element.addNativeEventListener(eventType, (event) => {
+    (element as ElementTag).addNativeEventListener(eventType, (event) => {
       // Converte o evento nativo para um DOMEvent e notifica os observadores
       const domEvent: DOMEvent = {
         type: event.type,
