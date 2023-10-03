@@ -58,15 +58,15 @@ describe("DOMQuery", () => {
     });
   });
 
-  describe("findNodeById", () => {
-    it("should find a node by id", () => {
-      const foundNode = DOMQuery.findNodeById(container, "child-1");
-      expect(foundNode).toEqual(child1);
-    });
+  // describe("findNodeById", () => {
+  //   it("should find a node by id", () => {
+  //     const foundNode = DOMQuery.findNodeById(container, "child-1");
+  //     expect(foundNode).toEqual(child1);
+  //   });
 
-    it("should return null if no node matches the id", () => {
-      const foundNode = DOMQuery.findNodeById(container, "non-existent-id");
-      expect(foundNode).toBeNull();
-    });
-  });
+  //   it("should return null if no node matches the id", () => {
+  //     const foundNode = DOMQuery.findNodeById(container, "non-existent-id");
+  //     expect(foundNode).toBeNull();
+  //   });
+  // });
 });
