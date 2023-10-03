@@ -32,7 +32,7 @@ test:  # Comando para rodar todos os testes com Jest dentro do container
 	$(DC) exec $(SERVICE_NAME) yarn test
 
 test-file:  # Comando para rodar um arquivo de teste específico com Jest dentro do container
-	$(DC) exec $(SERVICE_NAME) yarn test -- $(FILE)
+	$(DC) exec $(SERVICE_NAME) yarn test $(FILE)
 
 coverage:  # Comando para rodar a cobertura de código com Jest dentro do container
 	$(DC) exec $(SERVICE_NAME) yarn test --coverage
