@@ -94,9 +94,15 @@ describe("ElementNode", () => {
     expect(elementNode.children.length).toBe(0);
   });
 
-  // Testes para ElementNode
-
-  // ... (outros testes)
+  // Teste para garantir que os listeners de eventos nativos são removidos corretamente
+  it("should correctly remove native event listeners", () => {
+    const mockListener = jest.fn();
+    elementNode.addNativeEventListener("click", mockListener);
+    elementNode.removeNativeEventListener("click", mockListener);
+    const renderedElement = elementNode.render();
+    renderedElement.click();
+    expect(mockListener).not.toHaveBeenCalled();
+  });
 
   // Teste para verificar se o setter 'children' está funcionando como esperado
   it("should correctly set children through setter", () => {
@@ -154,5 +160,62 @@ describe("ElementNode", () => {
     const renderedElement = elementNode.render();
     renderedElement.click();
     expect(mockListener).toHaveBeenCalled();
+  });
+
+  // Teste para garantir que os listeners de eventos são mantidos entre renderizações
+  it("should retain event listeners across renderings", () => {
+    const mockListener = jest.fn();
+    elementNode.addNativeEventListener("click", mockListener);
+    const renderedElement1 = elementNode.render();
+    renderedElement1.click();
+    expect(mockListener).toHaveBeenCalled();
+    mockListener.mockClear(); // Limpa o estado do mock
+
+    // Renderiza novamente e verifica se o listener ainda está funcionando
+    const renderedElement2 = elementNode.render();
+    renderedElement2.click();
+    expect(mockListener).toHaveBeenCalled();
+  });
+
+  // Teste para garantir que os props são atualizados corretamente:
+  it("should correctly update props", () => {
+    const newProps = { id: "new-id" };
+    elementNode.updateProps(newProps);
+    expect(elementNode.props.id).toEqual(newProps.id);
+  });
+
+  // Teste para garantir que o método applyEventListeners está funcionando como esperado
+  it("should correctly apply event listeners", () => {
+    const mockListener = jest.fn();
+    elementNode.addNativeEventListener("click", mockListener);
+    const renderedElement = document.createElement("div");
+    elementNode.applyEventListeners(renderedElement);
+    renderedElement.click();
+    expect(mockListener).toHaveBeenCalled();
+  });
+
+  it("should correctly remove native event listener from real DOM element", () => {
+    const elementNode = new ElementNode("div");
+    const mockListener = jest.fn();
+
+    // Adicionando o listener ao ElementNode
+    elementNode.addNativeEventListener("click", mockListener);
+
+    // Renderizando o ElementNode para um elemento DOM real
+    const renderedElement = elementNode.render();
+
+    // Acionando o evento - o listener deve ser chamado
+    renderedElement.click();
+    expect(mockListener).toHaveBeenCalled();
+
+    // Resetando o mock
+    mockListener.mockReset();
+
+    // Removendo o listener
+    elementNode.removeNativeEventListener("click", mockListener);
+
+    // Acionando o evento novamente - o listener não deve ser chamado
+    renderedElement.click();
+    expect(mockListener).not.toHaveBeenCalled();
   });
 });

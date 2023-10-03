@@ -38,6 +38,10 @@ export default class ElementNode extends Node implements ElementTag {
     this._children = [...newChildren];
   }
 
+  updateProps(newProps: Object): void {
+    this._props = { ...this._props, ...newProps };
+  }
+
   addChild(node: Element): void {
     this._children.push(node);
   }
@@ -104,10 +108,6 @@ export default class ElementNode extends Node implements ElementTag {
 
     // Manter um registro do elemento DOM e seus listeners
     this._domElements.set(element, { ...this._eventListeners });
-  }
-
-  updateProps(newProps: Object): void {
-    Object.assign(this.props, newProps);
   }
 
   render(): HTMLElement {
