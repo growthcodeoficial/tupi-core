@@ -5,10 +5,7 @@ export default class ElementNode extends Node implements ElementTag {
   private _children: Element[];
 
   private _eventListeners: Record<string, ((event: Event) => void)[]> = {};
-  private _domElements: Map<
-    HTMLElement,
-    Record<string, ((event: Event) => void)[]>
-  > = new Map();
+  private _domElement?: HTMLElement;
 
   constructor(type: string, props: Props = {}, children: Element[] = []) {
     super();
@@ -73,6 +70,15 @@ export default class ElementNode extends Node implements ElementTag {
     this._eventListeners[eventType].push(listener);
   }
 
+  applyEventListeners(element: HTMLElement): void {
+    this._domElement = element;
+    for (const eventType in this._eventListeners) {
+      for (const listener of this._eventListeners[eventType]) {
+        element.addEventListener(eventType, listener);
+      }
+    }
+  }
+
   removeNativeEventListener(
     eventType: string,
     listener: (event: Event) => void
@@ -87,27 +93,9 @@ export default class ElementNode extends Node implements ElementTag {
       }
     }
 
-    // Remove o listener do elemento DOM real
-    for (const [element, listeners] of this._domElements) {
-      if (listeners[eventType]) {
-        const index = listeners[eventType].indexOf(listener);
-        if (index !== -1) {
-          element.removeEventListener(eventType, listener);
-          listeners[eventType].splice(index, 1);
-        }
-      }
+    if (this._domElement) {
+      this._domElement.removeEventListener(eventType, listener);
     }
-  }
-
-  applyEventListeners(element: HTMLElement): void {
-    for (const eventType in this._eventListeners) {
-      for (const listener of this._eventListeners[eventType]) {
-        element.addEventListener(eventType, listener);
-      }
-    }
-
-    // Manter um registro do elemento DOM e seus listeners
-    this._domElements.set(element, { ...this._eventListeners });
   }
 
   render(): HTMLElement {
