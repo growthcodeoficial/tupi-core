@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "rootDir": "./",
+    "baseUrl": "./src/",
+    "target": "ES2020",
+    "module": "CommonJS",
+    "outDir": "./dist",
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "types": ["jest", "node"],
+    "paths": {
+      "@config/*": ["config/*"],
+      "@dom/*": ["dom/*"],
+      "@logging/*": ["logging/*"],
+      "@state/*": ["state/*"],
+      "@observability/*": ["observability/*"]
+    }
+  }
+}
