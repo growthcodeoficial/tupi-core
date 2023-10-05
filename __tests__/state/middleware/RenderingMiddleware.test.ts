@@ -13,6 +13,15 @@ jest.mock("@dom/virtual-dom/Renderer", () => ({
   applyDiff: jest.fn(),
 }));
 
+// Mocking DiffingAlgorithm
+jest.mock("@dom/diffing/DiffingAlgorithm", () => {
+  return jest.fn().mockImplementation(() => {
+    return {
+      diff: jest.fn(),
+    };
+  });
+});
+
 // Mocking VirtualDOMCreator
 const mockVirtualDOMCreator = {
   create: jest.fn(),
