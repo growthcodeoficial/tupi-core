@@ -1,11 +1,11 @@
-# gcode-tupi-core
+# tupi-core
 
-`gcode-tupi-core` é um framework em TypeScript focado em manipulação DOM e gerenciamento de estado.
+`tupi-core` é um framework em TypeScript focado em manipulação DOM e gerenciamento de estado.
 
 ## Estrutura do Projeto
 
 ```plaintext
-gcode-tupi-core/
+tupi-core/
 │
 ├── __tests__/
 ├── .docker/
@@ -72,7 +72,7 @@ Os testes podem ser encontrados na pasta `__tests__`, e são organizados de mane
 
 ## Execução do Projeto via Makefile
 
-O `Makefile` facilita a execução de diversas tarefas comuns durante o desenvolvimento do projeto `gcode-tupi-core`. Abaixo estão descritos os comandos disponíveis no `Makefile`:
+O `Makefile` facilita a execução de diversas tarefas comuns durante o desenvolvimento do projeto `tupi-core`. Abaixo estão descritos os comandos disponíveis no `Makefile`:
 
 ### Comandos Docker
 
@@ -110,11 +110,11 @@ Esses comandos ajudam a gerenciar o ambiente Docker do projeto:
 
   Este comando exibe os logs de todos os serviços Docker.
 
-- **Ver Logs do gcode-tupi-core**:
+- **Ver Logs do tupi-core**:
   ```bash
   make logs
   ```
-  Este comando exibe os últimos 100 logs do serviço `gcode-tupi-core`.
+  Este comando exibe os últimos 100 logs do serviço `tupi-core`.
 
 ### Comandos de Teste
 
